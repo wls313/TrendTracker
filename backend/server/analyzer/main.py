@@ -4,6 +4,7 @@ import logging
 from datetime import datetime
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.concurrency import run_in_threadpool
 from pydantic import BaseModel
 import pandas as pd
 import pymysql
@@ -16,10 +17,13 @@ for p in [BACKEND_ROOT, SERVER_ROOT]:
     if p not in sys.path:
         sys.path.insert(0, p)
 
+
 from server.config.database import fetch_data
 from server.config.config import DB_CONFIG
 from server.analyzer.analyzer import analyze_viral_traffic
 from server.analyzer.crawler_service import run_sequential_crawling
+
+from crawling.youtube_crawling import (get_keyword_id)
 from progress_state import progress
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
@@ -30,7 +34,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
     allow_methods=["*"],
-    allow_headers=["*"],
+    allow_headers=["*"]
 )
 
 def get_keyword_id(keyword_name: str):
