@@ -71,8 +71,5 @@
 - **GitHub 저장소:** [wls313/viralFinder](https://github.com/wls313/viralFinder)
 
 <aside>
-💡
-
-프로젝트 코드와 구현 내용을 확인하려면 GitHub 저장소를 방문해 주세요.
 
 </aside>
